@@ -1,7 +1,38 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.realme.com.flutter_animated_splash_screen">
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="smsto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="*/*" />
+        </intent>
+
+    </queries>
+
+
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>;
+
+
    <application
-        android:label="flutter_animated_splash_screen"
+        android:label="realme Bangladesh"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
