@@ -5,6 +5,7 @@ import 'package:flutter_animated_splash_screen/brand.dart';
 import 'package:flutter_animated_splash_screen/community.dart';
 import 'package:flutter_animated_splash_screen/online_support.dart';
 import 'package:flutter_animated_splash_screen/privacy_policy.dart';
+import 'package:flutter_animated_splash_screen/services_day.dart';
 import 'package:flutter_animated_splash_screen/user_guide.dart';
 import 'package:flutter_animated_splash_screen/warranty_terms.dart';
 import 'mobile.dart' as mobile;
@@ -52,8 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
           actions: [
             IconButton(
                 onPressed: () {
-                  MySnackBar(
-                      "Search Bar Widgets are Under Constructions", context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Services_Day()),);
                 },
                 icon: Icon(Icons.notification_important_outlined)),
           ],
