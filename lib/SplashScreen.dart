@@ -282,7 +282,7 @@ Widget buildHeader(BuildContext context) => Container(
             height: 12,
           ),
           Text(
-            "realme Service",
+            "realme Bangladesh",
             style: TextStyle(
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
