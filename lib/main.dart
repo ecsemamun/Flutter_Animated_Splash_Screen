@@ -5,7 +5,7 @@ import 'SplashScreen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(statusBarColor: Colors.transparent)
+    SystemUiOverlayStyle(statusBarColor: Colors.black)
   );
   runApp(MyApp());
 }
@@ -34,10 +34,11 @@ class _MyAppState extends State<MyApp> {
           Container(
             height: 550,
             width: 500,
+
             child: AnimatedSplashScreen(splash: 'assets/realme.png', nextScreen: SplashScreen(),
               splashTransition: SplashTransition.fadeTransition,
-              duration: 4,
-              backgroundColor: Colors.black54,
+              duration: 3,
+              backgroundColor: Colors.black,
             ),
           ),
           CircularProgressIndicator(
