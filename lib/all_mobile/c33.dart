@@ -12,6 +12,7 @@ class C33 extends StatefulWidget {
 class _C33State extends State<C33> {
 
   WebViewController? _controller;
+  double webProgress = 0;
 
   @override
   void initState() {
@@ -20,9 +21,9 @@ class _C33State extends State<C33> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
+          onProgress: (progress) => setState(() {
+            this.webProgress = progress / 100;
+          }),
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
@@ -46,6 +47,23 @@ class _C33State extends State<C33> {
           title: const Text("realme C33"),
           actions: const [],
         ),
-        body: WebViewWidget(controller: _controller!));
+        body: Column(
+          children: [
+            webProgress < 1 ? SizedBox(
+              height: 7,
+              child: LinearProgressIndicator(
+                value: webProgress,
+                color: Colors.red,
+                backgroundColor: Colors.black,
+              ),
+            ) : SizedBox(),
+            Expanded(
+
+                child: WebViewWidget(controller: _controller!)),
+          ],
+
+        ));
+
   }
 }
+

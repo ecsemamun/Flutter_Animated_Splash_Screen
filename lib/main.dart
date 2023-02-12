@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'SplashScreen.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: Colors.transparent)
+  );
   runApp(MyApp());
 }
 

@@ -12,6 +12,8 @@ class GtNeo2 extends StatefulWidget {
 class _GtNeo2State extends State<GtNeo2> {
 
   WebViewController? _controller;
+  double webProgress = 0;
+
   @override
   void initState() {
     _controller = WebViewController()
@@ -19,10 +21,9 @@ class _GtNeo2State extends State<GtNeo2> {
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-
+          onProgress: (progress) => setState(() {
+            this.webProgress = progress / 100;
+          }),
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
@@ -45,6 +46,22 @@ class _GtNeo2State extends State<GtNeo2> {
           title: const Text("realme GT Neo 2"),
           actions: const [],
         ),
-        body: WebViewWidget(controller: _controller!));
+        body: Column(
+          children: [
+            webProgress < 1 ? SizedBox(
+              height: 7,
+              child: LinearProgressIndicator(
+                value: webProgress,
+                color: Colors.red,
+                backgroundColor: Colors.black,
+              ),
+            ) : SizedBox(),
+            Expanded(
+
+                child: WebViewWidget(controller: _controller!)),
+          ],
+
+        ));
+
   }
 }
