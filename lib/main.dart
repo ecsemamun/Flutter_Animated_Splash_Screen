@@ -29,8 +29,21 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
           primarySwatch: Colors.orange
       ),
-      home: AnimatedSplashScreen(splash: 'assets/realme.png', nextScreen: SplashScreen(),
-        splashTransition: SplashTransition.fadeTransition,
+      home: Column(
+        children: [
+          Container(
+            height: 550,
+            width: 500,
+            child: AnimatedSplashScreen(splash: 'assets/realme.png', nextScreen: SplashScreen(),
+              splashTransition: SplashTransition.fadeTransition,
+              duration: 4,
+              backgroundColor: Colors.black54,
+            ),
+          ),
+          CircularProgressIndicator(
+            color: Colors.yellow,
+          ),
+        ],
       ),
     );
   }
