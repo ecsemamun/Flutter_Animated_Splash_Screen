@@ -26,14 +26,14 @@ class _GtMasterState extends State<GtMaster> {
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.realme.com/bd/realme-gt-neo-2')) {
+            if (request.url.startsWith('https://www.realme.com/bd/realme-gt-master-edition')) {
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
           },
         ),
       )
-      ..loadRequest(Uri.parse('https://www.realme.com/bd/realme-gt-neo-2/specs'));
+      ..loadRequest(Uri.parse('https://www.realme.com/bd/realme-gt-master-edition/specs'));
     super.initState();
   }
 

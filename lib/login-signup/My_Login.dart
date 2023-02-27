@@ -13,44 +13,11 @@ class MyLogin extends StatefulWidget {
 
 class _MyLoginState extends State<MyLogin> {
   final _formKey = GlobalKey<FormState>();
-  final _emailCtrl = TextEditingController();
-  final _passwordCtrl = TextEditingController();
 
-  @override
-  void dispose() {
-    super.dispose();
-    _emailCtrl.dispose();
-    _passwordCtrl.dispose();
-  }
+  final _auth = FirebaseAuth.instance;
 
-  void signInFirebase() async {
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailCtrl.text.trim(),
-        password: _passwordCtrl.text.trim(),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sign In Success')),
-      );
-
-      setState(() {
-
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No user found for that email.')),
-        );
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Wrong password provided for that user.')),
-        );
-        print('Wrong password provided for that user.');
-      }
-    }
-  }
+  late String email;
+  late String password;
 
   bool isShowPassword = false;
 
@@ -67,7 +34,6 @@ class _MyLoginState extends State<MyLogin> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -80,7 +46,7 @@ class _MyLoginState extends State<MyLogin> {
             Container(
               padding: EdgeInsets.only(left: 35, top: 150),
               child: Text(
-                'Welcome\nBack',
+                'রিয়েলমিতে\nস্বাগতম',
                 style: TextStyle(color: Colors.white, fontSize: 33),
               ),
             ),
@@ -104,20 +70,23 @@ class _MyLoginState extends State<MyLogin> {
                         child: Column(
                           children: [
                             TextFormField(
-                              controller: _emailCtrl,
+                              onChanged: (value) {
+                                email = value;
+                              },
                               style: TextStyle(color: Colors.black),
+                              keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Enter Your Email";
+                                  return "আপনার ইমেইল আইডি দিন !";
                                 } else if (!validEmail(value)) {
-                                  return "Invalid Email";
+                                  return "আপনি ভূল ইমেইল আইডি দিয়েছেন !";
                                 }
                               },
                               decoration: InputDecoration(
                                   fillColor: Colors.grey.shade100,
                                   filled: true,
                                   prefixIcon: Icon(Icons.email),
-                                  hintText: "Email",
+                                  hintText: "ইমেইল",
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   )),
@@ -126,20 +95,23 @@ class _MyLoginState extends State<MyLogin> {
                               height: 30,
                             ),
                             TextFormField(
-                              controller: _passwordCtrl,
+                              onChanged: (value) {
+                                password = value;
+                              },
                               style: TextStyle(),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Enter Your Password";
+                                  return "আপনার পাসওয়ার্ড দিন !";
                                 }
                                 return null;
                               },
                               obscureText: !isShowPassword,
+                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   fillColor: Colors.grey.shade100,
                                   filled: true,
                                   prefixIcon: Icon(Icons.lock),
-                                  hintText: "Password",
+                                  hintText: "পাসওয়ার্ড",
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       passwordVisibility();
@@ -155,29 +127,43 @@ class _MyLoginState extends State<MyLogin> {
                             SizedBox(
                               height: 40,
                             ),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Sign in',
+                                  'লগিন করুন',
                                   style: TextStyle(
                                       fontSize: 27,
                                       fontWeight: FontWeight.w700),
                                 ),
-
                                 CircleAvatar(
                                   radius: 30,
                                   backgroundColor: Color(0xff4c505b),
                                   child: IconButton(
                                       color: Colors.white,
-                                      onPressed: () {
-                                        signInFirebase();
-
-
+                                      onPressed: () async {
                                         if (_formKey.currentState!
                                             .validate()) {}
 
+                                        final user = await _auth
+                                            .signInWithEmailAndPassword(
+                                                email: email,
+                                                password: password);
+
+                                        if (user != null) {
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SplashScreen(),
+                                              ));
+                                        }
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                              content:
+                                                  Text('সাইন ইন সাকসেসফুলি')),
+                                        );
                                       },
                                       icon: Icon(
                                         Icons.arrow_forward,
@@ -196,7 +182,7 @@ class _MyLoginState extends State<MyLogin> {
                                     Navigator.pushNamed(context, 'register');
                                   },
                                   child: Text(
-                                    'Sign Up',
+                                    'সাইন আপ',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                         decoration: TextDecoration.underline,
@@ -208,11 +194,11 @@ class _MyLoginState extends State<MyLogin> {
                                 TextButton(
                                     onPressed: () {},
                                     child: Text(
-                                      'Forgot Password',
+                                      'পাসওয়ার্ড ভূলে গেছেন ? ',
                                       style: TextStyle(
                                         decoration: TextDecoration.underline,
                                         color: Color(0xff4c505b),
-                                        fontSize: 18,
+                                        fontSize: 15,
                                       ),
                                     )),
                               ],

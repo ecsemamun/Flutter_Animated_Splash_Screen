@@ -14,44 +14,11 @@ class MyRegister extends StatefulWidget {
 
 class _MyRegisterState extends State<MyRegister> {
   final _formKey = GlobalKey<FormState>();
-  final _emailCtrl = TextEditingController();
-  final _passwordCtrl = TextEditingController();
 
+  final _auth = FirebaseAuth.instance;
 
-  @override
-  void dispose() {
-    super.dispose();
-    _emailCtrl.dispose();
-    _passwordCtrl.dispose();
-  }
-
-  void signUpFirebase() async {
-    try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailCtrl.text.trim(),
-        password: _passwordCtrl.text.trim(),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sign Up Success')),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('The password provided is too weak.')),
-        );
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('The account already exists for that email.')),
-        );
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  late String email;
+  late String password;
 
   bool isShowPassword = false;
 
@@ -59,7 +26,7 @@ class _MyRegisterState extends State<MyRegister> {
     setState(() {
       isShowPassword = true;
     });
-    Future.delayed(Duration(seconds: 2)).then((value) {
+    Future.delayed(Duration(seconds: 4)).then((value) {
       setState(() {
         isShowPassword = false;
       });
@@ -84,7 +51,7 @@ class _MyRegisterState extends State<MyRegister> {
             Container(
               padding: EdgeInsets.only(left: 35, top: 5),
               child: Text(
-                'Create\nAccount',
+                'একাউন্ট\nতৈরি করুন !',
                 style: TextStyle(color: Colors.white, fontSize: 33),
               ),
             ),
@@ -111,9 +78,9 @@ class _MyRegisterState extends State<MyRegister> {
                               style: TextStyle(color: Colors.white),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Enter Your Full Name";
-                                } else if (value!.length < 10) {
-                                  return "Name Must Be A 10 Character Or Above";
+                                  return "আপনার নাম লিখুন !";
+                                } else if (value!.length < 7) {
+                                  return "আপনার নাম সর্বনিম্ন ৭ ক্যারাক্টার হতে হবে!";
                                 }
                               },
                               decoration: InputDecoration(
@@ -129,7 +96,7 @@ class _MyRegisterState extends State<MyRegister> {
                                       color: Colors.black,
                                     ),
                                   ),
-                                  hintText: "Name",
+                                  hintText: "নাম লিখুন",
                                   prefixIcon: Icon(Icons.account_circle),
                                   hintStyle: TextStyle(color: Colors.white),
                                   border: OutlineInputBorder(
@@ -141,11 +108,12 @@ class _MyRegisterState extends State<MyRegister> {
                             ),
                             TextFormField(
                               style: TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.phone,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Enter Your Mobile Number";
+                                  return "আপনার মোবাইল নাম্বার লিখুন !";
                                 } else if (value!.length < 10) {
-                                  return "Mobile Number Must be 11 Digit";
+                                  return "মোবাইল নাম্বার সর্বনিম্ন ৭ ক্যারাক্টার হতে হবে!";
                                 }
                               },
                               decoration: InputDecoration(
@@ -161,7 +129,7 @@ class _MyRegisterState extends State<MyRegister> {
                                       color: Colors.black,
                                     ),
                                   ),
-                                  hintText: "Mobile Number",
+                                  hintText: "মোবাইল নাম্বার",
                                   prefixIcon: Icon(Icons.numbers),
                                   hintStyle: TextStyle(color: Colors.white),
                                   border: OutlineInputBorder(
@@ -172,13 +140,17 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 10,
                             ),
                             TextFormField(
-                              controller: _emailCtrl,
+                              // controller: _emailCtrl,
+                              onChanged: (value) {
+                                email = value;
+                              },
                               style: TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Enter Your Email Address";
+                                  return "আপনার ইমেইল আইডি দিন !";
                                 } else if (!validEmail(value)) {
-                                  return "Invalid Email";
+                                  return "আপনি ইনভেলিড ইমেইল আইডি দিয়েছেন !";
                                 }
                               },
                               decoration: InputDecoration(
@@ -194,7 +166,7 @@ class _MyRegisterState extends State<MyRegister> {
                                       color: Colors.black,
                                     ),
                                   ),
-                                  hintText: "Email",
+                                  hintText: "ইমেইল",
                                   prefixIcon: Icon(Icons.email),
                                   hintStyle: TextStyle(color: Colors.white),
                                   border: OutlineInputBorder(
@@ -205,13 +177,16 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 10,
                             ),
                             TextFormField(
-                              controller: _passwordCtrl,
+                              onChanged: (value) {
+                                password = value;
+                              },
                               style: TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.number,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Enter Your Password";
+                                  return "আপনার পাসওয়ার্ড দিন !";
                                 } else if (value!.length < 6) {
-                                  return "Password Must Be A 10 Character Or Above";
+                                  return "পাসওয়ার্ড সর্বনিম্ন ৬ ক্যারাক্টার হতে হবে!";
                                 }
                               },
                               obscureText: !isShowPassword,
@@ -228,7 +203,7 @@ class _MyRegisterState extends State<MyRegister> {
                                       color: Colors.black,
                                     ),
                                   ),
-                                  hintText: "Password",
+                                  hintText: "পাসওয়ার্ড",
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       passwordVisibility();
@@ -248,9 +223,10 @@ class _MyRegisterState extends State<MyRegister> {
                             ),
                             TextFormField(
                               style: TextStyle(color: Colors.white),
+                              keyboardType: TextInputType.number,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "Enter Your Confiram-Password";
+                                  return "অপনার কনর্ফাম-পাসওয়ার্ড দিন !";
                                 } else if (value!.length < 6) {
                                   return "Password Must Be A 10 Character Or Above";
                                 }
@@ -269,7 +245,7 @@ class _MyRegisterState extends State<MyRegister> {
                                       color: Colors.black,
                                     ),
                                   ),
-                                  hintText: "Confirm-Password",
+                                  hintText: "কনর্ফাম-পাসওয়ার্ড",
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       passwordVisibility();
@@ -291,7 +267,7 @@ class _MyRegisterState extends State<MyRegister> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Sign Up',
+                                  'সাইন আপ',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 27,
@@ -302,18 +278,18 @@ class _MyRegisterState extends State<MyRegister> {
                                   backgroundColor: Color(0xff4c505b),
                                   child: IconButton(
                                       color: Colors.white,
-                                      onPressed: () {
-                                        signUpFirebase();
+                                      onPressed: () async {
+                                        if (_formKey.currentState!
+                                            .validate()) {}
+                                        _auth.createUserWithEmailAndPassword(
+                                            email: email, password: password);
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           const SnackBar(
                                               content:
-                                              Text('Sign Up Sucess')),
+                                                  Text('সাইনআপ সাকসেসফুলি')),
                                         );
-                                        if (_formKey.currentState!
-                                            .validate()) {}
                                       },
-
                                       icon: Icon(
                                         Icons.arrow_forward,
                                       )),
@@ -328,7 +304,7 @@ class _MyRegisterState extends State<MyRegister> {
                                     Navigator.pushNamed(context, 'login');
                                   },
                                   child: Text(
-                                    'Sign In',
+                                    'লগিন করুন',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                         decoration: TextDecoration.underline,

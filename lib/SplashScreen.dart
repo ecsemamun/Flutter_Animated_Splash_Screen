@@ -361,8 +361,8 @@ Widget buildMenuItems(BuildContext context) => Container(
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
-            onTap: () async{
-              await FirebaseAuth.instance.signOut();
+            onTap: () {
+
             },
           ),
         ],

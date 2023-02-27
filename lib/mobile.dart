@@ -91,6 +91,12 @@ class _MobileState extends State<Mobile> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => GtMaster()));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(
+                    const SnackBar(
+                        content:
+                        Text('realme GT Master Edition', style: TextStyle(color: Colors.orange,),)),
+                  );
                 },
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
