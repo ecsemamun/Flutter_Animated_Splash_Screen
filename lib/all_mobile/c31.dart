@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 
-class GtNeo2 extends StatefulWidget {
-  const GtNeo2({Key? key}) : super(key: key);
+class C31 extends StatefulWidget {
+  const C31({Key? key}) : super(key: key);
 
   @override
-  State<GtNeo2> createState() => _GtNeo2State();
+  State<C31> createState() => _C31State();
 }
 
-class _GtNeo2State extends State<GtNeo2> {
-
+class _C31State extends State<C31> {
   WebViewController? _controller;
   double webProgress = 0;
 
@@ -28,14 +27,14 @@ class _GtNeo2State extends State<GtNeo2> {
           onPageFinished: (String url) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('https://www.realme.com/bd/realme-gt-neo-2')) {
+            if (request.url.startsWith('https://www.realme.com/bd/realme-c31')) {
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
           },
         ),
       )
-      ..loadRequest(Uri.parse('https://www.realme.com/bd/realme-gt-neo-2/specs'));
+      ..loadRequest(Uri.parse('https://www.realme.com/bd/realme-c31/specs'));
     super.initState();
   }
 
@@ -43,7 +42,7 @@ class _GtNeo2State extends State<GtNeo2> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("realme GT Neo 2"),
+          title: const Text("realme C31"),
           backgroundColor: Colors.yellow,
         ),
         body: Column(

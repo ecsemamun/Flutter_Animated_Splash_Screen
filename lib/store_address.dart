@@ -42,7 +42,7 @@ class _StoreAddressState extends State<StoreAddress> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("realme Store Address"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: WebViewWidget(controller: _controller!));
   }

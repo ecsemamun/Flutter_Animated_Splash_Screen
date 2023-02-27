@@ -15,6 +15,7 @@ class _PowerChargingBatteryState extends State<PowerChargingBattery> {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: Text("Frequenty Ask Question"),
+        backgroundColor: Colors.yellow,
       ),
       body: Container(
         child: SingleChildScrollView(

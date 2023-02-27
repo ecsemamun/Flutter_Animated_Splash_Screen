@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "651623262339",
+    "project_id": "realme-f185d",
+    "storage_bucket": "realme-f185d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651623262339:android:8b9a2e8fadd8f25cc453b6",
+        "android_client_info": {
+          "package_name": "com.realme.com.flutter_animated_splash_screen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651623262339-hkj1jd18auav4uojildc9fcb5fpfq8op.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.realme.com.flutter_animated_splash_screen",
+            "certificate_hash": "b1756fe96ce306ccb1d863bf713909a96155b5ee"
+          }
+        },
+        {
+          "client_id": "651623262339-jequuq37rvjhvuvspsa2fl2bbnp18d36.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe5ZzyskFtE_CsM4njNpHwPUWdOatWnqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651623262339-jequuq37rvjhvuvspsa2fl2bbnp18d36.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

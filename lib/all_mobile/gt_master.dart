@@ -42,7 +42,7 @@ class _GtMasterState extends State<GtMaster> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("realme GT Master"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: Column(
           children: [

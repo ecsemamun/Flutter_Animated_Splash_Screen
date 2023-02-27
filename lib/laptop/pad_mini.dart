@@ -42,7 +42,7 @@ class _Pad_MiniState extends State<Pad_Mini> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("realme Pad Mini"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: WebViewWidget(controller: _controller!));
   }

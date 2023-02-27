@@ -41,7 +41,7 @@ class _UserGuideState extends State<UserGuide> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("User Agreement"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: WebViewWidget(controller: _controller!));
   }

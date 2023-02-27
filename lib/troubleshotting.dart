@@ -20,6 +20,7 @@ class _TroubleshottingState extends State<Troubleshotting> {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: Text("TroubleShooting"),
+        backgroundColor: Colors.yellow,
       ),
       body: new GridView.count(
         crossAxisCount: 2,

@@ -17,6 +17,7 @@ class _Tips_AfterSalesState extends State<Tips_AfterSales> {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: Text("Welcome to realme Support"),
+        backgroundColor: Colors.yellow,
       ),
       body: new GridView.count(
           crossAxisCount: 2,

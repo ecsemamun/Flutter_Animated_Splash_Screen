@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_splash_screen/brand.dart';
 import 'package:flutter_animated_splash_screen/community.dart';
@@ -48,16 +49,20 @@ class _SplashScreenState extends State<SplashScreen>
         appBar: AppBar(
           title: Text(
             "realme Bangladesh",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black),
           ),
           actions: [
             IconButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Services_Day()),);
-                },
-                icon: Icon(Icons.notification_important_outlined)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Services_Day()),
+                );
+              },
+              icon: Icon(Icons.notification_important_outlined),tooltip: "Notification",
+            ),
           ],
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.yellow,
           centerTitle: true,
           bottom: new TabBar(
             controller: controller,
@@ -89,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen>
               MaterialPageRoute(builder: (context) => OnlineSupport()),
             );
           },
-          child: Icon(Icons.message),
+          child: Icon(Icons.message),tooltip: "After Sales Department",
           backgroundColor: Colors.black87,
           foregroundColor: Colors.yellow,
           elevation: 0,
@@ -119,10 +124,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.branding_watermark,
-                        color: Colors.white,
-                      ),
+                      Icon(Icons.branding_watermark, color: Colors.white,),
                       Text(
                         "Brand",
                         style: TextStyle(color: Colors.white),
@@ -267,7 +269,7 @@ class _SplashScreenState extends State<SplashScreen>
 }
 
 Widget buildHeader(BuildContext context) => Container(
-      color: Colors.green.shade800,
+      color: Colors.yellow.shade600,
       padding: EdgeInsets.only(
         top: 24 + MediaQuery.of(context).padding.top,
         bottom: 24,
@@ -284,12 +286,12 @@ Widget buildHeader(BuildContext context) => Container(
           Text(
             "realme Bangladesh",
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Text(
             'service.bd@realme.com',
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -342,8 +344,6 @@ Widget buildMenuItems(BuildContext context) => Container(
               );
             },
           ),
-
-
           ListTile(
             leading: const Icon(Icons.safety_check),
             title: const Text('Privacy Policy'),
@@ -358,11 +358,12 @@ Widget buildMenuItems(BuildContext context) => Container(
             title: const Text('Settings'),
             onTap: () {},
           ),
-
           ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
-            onTap: () {},
+            onTap: () async{
+              await FirebaseAuth.instance.signOut();
+            },
           ),
         ],
       ),

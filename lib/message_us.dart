@@ -45,7 +45,7 @@ class _MessageUSState extends State<MessageUS> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Message US Via Facebook"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: Column(
           children: [

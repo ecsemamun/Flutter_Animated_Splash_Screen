@@ -44,7 +44,7 @@ class _Spare_Parts_ListState extends State<Spare_Parts_List> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("realme Spare Parts List"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: Column(
           children: [

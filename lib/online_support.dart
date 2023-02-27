@@ -18,6 +18,7 @@ class _OnlineSupportState extends State<OnlineSupport> {
     return Scaffold (
       appBar: AppBar(
         title: Text("Welcome To Online Support"),
+        backgroundColor: Colors.yellow,
       ),
       body: new GridView.count(
         crossAxisCount: 2,

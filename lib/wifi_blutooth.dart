@@ -16,6 +16,7 @@ class _WifiBluetoohState extends State<WifiBluetooh> {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: Text("Frequenty Ask Question"),
+        backgroundColor: Colors.yellow,
       ),
       body: Container(
         child: SingleChildScrollView(

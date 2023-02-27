@@ -44,7 +44,7 @@ class _Online_Warranty_checkState extends State<Online_Warranty_check> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Online Warranty Check"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: Column(
           children: [

@@ -17,6 +17,7 @@ class _WarrantyCheckState extends State<WarrantyCheck> {
     return Scaffold (
       appBar: AppBar(
         title: Text("Welcome To Online Support"),
+        backgroundColor: Colors.yellow,
       ),
       body: new GridView.count(
         crossAxisCount: 2,

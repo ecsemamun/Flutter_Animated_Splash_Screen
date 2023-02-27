@@ -41,7 +41,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("realme Privacy Policy"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: WebViewWidget(controller: _controller!));
   }

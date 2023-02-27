@@ -16,6 +16,7 @@ class _ESC_InfoState extends State<ESC_Info> {
       appBar: AppBar(
         title: Text("ESC & CP"),
         centerTitle: true,
+        backgroundColor: Colors.yellow,
       ),
       body: new GridView.count(
         crossAxisCount: 2,

@@ -45,7 +45,7 @@ class _C33State extends State<C33> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("realme C33"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: Column(
           children: [

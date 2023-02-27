@@ -42,7 +42,7 @@ class _WarrantyTermsState extends State<WarrantyTerms> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("realme Warranty Terms"),
-          actions: const [],
+          backgroundColor: Colors.yellow,
         ),
         body: WebViewWidget(controller: _controller!));
   }

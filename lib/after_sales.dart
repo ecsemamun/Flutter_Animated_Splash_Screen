@@ -15,6 +15,7 @@ class _AfterSalesTipsState extends State<AfterSalesTips> {
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: Text("After Sales Tips"),
+        backgroundColor: Colors.yellow,
       ),
       body: Container(
         child: SingleChildScrollView(
