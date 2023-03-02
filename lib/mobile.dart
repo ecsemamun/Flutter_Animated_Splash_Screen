@@ -127,7 +127,7 @@ class _MobileState extends State<Mobile> {
                             ),
                           ),
                         ]
-                      ))
+                      )),
                     ),
 
                   ],
