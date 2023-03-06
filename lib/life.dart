@@ -24,7 +24,7 @@ class _LifeState extends State<Life> {
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget> [
-                  new Image.asset("assets/watch2pro.png",
+                  new Image.network("https://image01.realme.net/general/20220425/1650871908261.png.webp",
                     height: 115.0,
                     width: 115.0,
                     fit: BoxFit.cover,
@@ -68,7 +68,7 @@ class _LifeState extends State<Life> {
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget> [
-                  new Image.asset("assets/watch2.png",
+                  new Image.network("https://image01.realme.net/general/20220425/1650871938176.png.webp",
                     height: 115.0,
                     width: 115.0,
                     fit: BoxFit.cover,
@@ -113,7 +113,7 @@ class _LifeState extends State<Life> {
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget> [
-                  new Image.asset("assets/band.png",
+                  new Image.network("https://image01.realme.net/general/20220425/1650871955962.png.webp",
                     height: 115.0,
                     width: 115.0,
                     fit: BoxFit.cover,

@@ -4,11 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_splash_screen/brand.dart';
 import 'package:flutter_animated_splash_screen/community.dart';
+import 'package:flutter_animated_splash_screen/login-signup/My_Login.dart';
 import 'package:flutter_animated_splash_screen/online_support.dart';
 import 'package:flutter_animated_splash_screen/privacy_policy.dart';
 import 'package:flutter_animated_splash_screen/services_day.dart';
 import 'package:flutter_animated_splash_screen/user_guide.dart';
 import 'package:flutter_animated_splash_screen/warranty_terms.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'mobile.dart' as mobile;
 import 'laptop.dart' as laptop;
 import 'audio.dart' as audio;
@@ -59,7 +62,8 @@ class _SplashScreenState extends State<SplashScreen>
                   MaterialPageRoute(builder: (context) => Services_Day()),
                 );
               },
-              icon: Icon(Icons.notification_important_outlined),tooltip: "Notification",
+              icon: Icon(Icons.notification_important_outlined),
+              tooltip: "Notification",
             ),
           ],
           backgroundColor: Colors.yellow,
@@ -94,7 +98,8 @@ class _SplashScreenState extends State<SplashScreen>
               MaterialPageRoute(builder: (context) => OnlineSupport()),
             );
           },
-          child: Icon(Icons.message),tooltip: "After Sales Department",
+          child: Icon(Icons.message),
+          tooltip: "After Sales Department",
           backgroundColor: Colors.black87,
           foregroundColor: Colors.yellow,
           elevation: 0,
@@ -124,7 +129,10 @@ class _SplashScreenState extends State<SplashScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.branding_watermark, color: Colors.white,),
+                      Icon(
+                        Icons.branding_watermark,
+                        color: Colors.white,
+                      ),
                       Text(
                         "Brand",
                         style: TextStyle(color: Colors.white),
@@ -314,8 +322,8 @@ Widget buildMenuItems(BuildContext context) => Container(
             },
           ),
           ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Warranty Terms'),
+            leading: const Icon(Icons.note),
+            title: const Text('Keep Notes'),
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => WarrantyTerms()),
@@ -362,7 +370,8 @@ Widget buildMenuItems(BuildContext context) => Container(
             leading: const Icon(Icons.logout),
             title: const Text('Log Out'),
             onTap: () {
-
+              FirebaseAuth.instance.signOut();
+              Get.off(() => const MyLogin());
             },
           ),
         ],

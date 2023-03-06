@@ -46,7 +46,7 @@ class _MobileState extends State<Mobile> {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Image.asset("assets/gtneo2.png",
+                    new Image.network("https://image01.realme.net/general/20211109/1636422747573.png.webp",
                       height: 115.0,
                       width: 115.0,
                       fit: BoxFit.cover,
@@ -101,7 +101,7 @@ class _MobileState extends State<Mobile> {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Image.asset("assets/gtmaster.png",
+                    new Image.network("https://image01.realme.net/general/20210922/1632290975239.png.webp",
                       height: 115.0,
                       width: 115.0,
                       fit: BoxFit.cover,
@@ -151,7 +151,7 @@ class _MobileState extends State<Mobile> {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Image.asset("assets/c33.png",
+                    new Image.network("https://image01.realme.net/general/20221108/1667889776216.png.webp",
                       height: 115.0,
                       width: 115.0,
                       fit: BoxFit.cover,
@@ -202,7 +202,7 @@ class _MobileState extends State<Mobile> {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Image.asset("assets/C30.png",
+                    new Image.network("https://image01.realme.net/general/20221017/1665997307773.png.webp",
                       height: 115.0,
                       width: 115.0,
                       fit: BoxFit.cover,
@@ -253,7 +253,7 @@ class _MobileState extends State<Mobile> {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Image.asset("assets/c35.png",
+                    new Image.network("https://image01.realme.net/general/20220516/1652683934168.png.webp",
                       height: 115.0,
                       width: 115.0,
                       fit: BoxFit.cover,
@@ -303,7 +303,7 @@ class _MobileState extends State<Mobile> {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Image.asset("assets/c31.png",
+                    new Image.network("https://image01.realme.net/general/20220411/1649667806261.png.webp",
                       height: 115.0,
                       width: 115.0,
                       fit: BoxFit.cover,
@@ -353,7 +353,7 @@ class _MobileState extends State<Mobile> {
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Image.asset("assets/c25y.png",
+                    new Image.network("https://image01.realme.net/general/20211109/1636422771686.png.webp",
                       height: 115.0,
                       width: 115.0,
                       fit: BoxFit.cover,

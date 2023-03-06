@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_splash_screen/SplashScreen.dart';
+import 'package:flutter_animated_splash_screen/login-signup/forgot_password.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 import 'form_validation.dart';
 
@@ -12,13 +15,11 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+
+  TextEditingController LoginEmailController = TextEditingController();
+  TextEditingController LoginPasswordController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
-
-  final _auth = FirebaseAuth.instance;
-
-  late String email;
-  late String password;
-
   bool isShowPassword = false;
 
   passwordVisibility() {
@@ -59,7 +60,10 @@ class _MyLoginState extends State<MyLogin> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.5),
+                    top: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.5),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -70,16 +74,16 @@ class _MyLoginState extends State<MyLogin> {
                         child: Column(
                           children: [
                             TextFormField(
-                              onChanged: (value) {
-                                email = value;
-                              },
+                              controller: LoginEmailController,
                               style: TextStyle(color: Colors.black),
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "আপনার ইমেইল আইডি দিন !";
-                                } else if (!validEmail(value)) {
-                                  return "আপনি ভূল ইমেইল আইডি দিয়েছেন !";
+                                } else if (!RegExp(
+                                    "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                    .hasMatch(value)) {
+                                  return 'আপনি ভূল ইমেইল আইডি দিয়েছেন !';
                                 }
                               },
                               decoration: InputDecoration(
@@ -95,9 +99,7 @@ class _MyLoginState extends State<MyLogin> {
                               height: 30,
                             ),
                             TextFormField(
-                              onChanged: (value) {
-                                password = value;
-                              },
+                              controller: LoginPasswordController,
                               style: TextStyle(),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -144,26 +146,30 @@ class _MyLoginState extends State<MyLogin> {
                                       onPressed: () async {
                                         if (_formKey.currentState!
                                             .validate()) {}
-
-                                        final user = await _auth
-                                            .signInWithEmailAndPassword(
-                                                email: email,
-                                                password: password);
-
-                                        if (user != null) {
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SplashScreen(),
-                                              ));
+                                        var loginEmail = LoginEmailController
+                                            .text.trim();
+                                        var loginPassword = LoginPasswordController
+                                            .text.trim();
+                                        try {
+                                          final User? firebaseUser = (await FirebaseAuth.instance
+                                              .signInWithEmailAndPassword(
+                                              email: loginEmail,
+                                              password: loginPassword)).user;
+                                          if(firebaseUser != null) {
+                                            Get.to(() => SplashScreen());
+                                            Fluttertoast.showToast(msg: 'Login Successfully');
+                                          } else {
+                                            print("পাসওয়ার্ড ও পাসওয়ার্ড চেক করুন! ");
+                                          }
+                                        } on FirebaseAuthException catch (e) {
+                                          if (e.code == 'কোন ইউজার নাই!') {
+                                            Fluttertoast.showToast(msg: 'এই ইমেইলে কোন রের্কড নাই!');
+                                          } else if (e.code == 'পাসওয়ার্ড ভূল') {
+                                            Fluttertoast.showToast(msg: 'আপনি ভূল পাসওয়ার্ড দিয়েছেণ !');
+                                          }
+                                        } catch (e) {
+                                          Fluttertoast.showToast(msg: 'Error is: $e');
                                         }
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content:
-                                                  Text('সাইন ইন সাকসেসফুলি')),
-                                        );
                                       },
                                       icon: Icon(
                                         Icons.arrow_forward,
@@ -192,7 +198,9 @@ class _MyLoginState extends State<MyLogin> {
                                   style: ButtonStyle(),
                                 ),
                                 TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Get.to(()=> const Forgot_Password());
+                                    },
                                     child: Text(
                                       'পাসওয়ার্ড ভূলে গেছেন ? ',
                                       style: TextStyle(

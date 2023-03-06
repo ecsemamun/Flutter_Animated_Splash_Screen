@@ -1,8 +1,12 @@
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'My_Login.dart';
+import 'Sign_Up_Services.dart';
 import 'form_validation.dart';
 
 class MyRegister extends StatefulWidget {
@@ -13,12 +17,15 @@ class MyRegister extends StatefulWidget {
 }
 
 class _MyRegisterState extends State<MyRegister> {
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController userPhoneController = TextEditingController();
+  TextEditingController userEmailController = TextEditingController();
+  TextEditingController userPassController = TextEditingController();
+  TextEditingController userConfirmPassController = TextEditingController();
+
+  User? currentUser = FirebaseAuth.instance.currentUser;
+
   final _formKey = GlobalKey<FormState>();
-
-  final _auth = FirebaseAuth.instance;
-
-  late String email;
-  late String password;
 
   bool isShowPassword = false;
 
@@ -75,6 +82,7 @@ class _MyRegisterState extends State<MyRegister> {
                         child: Column(
                           children: [
                             TextFormField(
+                              controller: userNameController,
                               style: TextStyle(color: Colors.white),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -107,6 +115,7 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 10,
                             ),
                             TextFormField(
+                              controller: userPhoneController,
                               style: TextStyle(color: Colors.white),
                               keyboardType: TextInputType.phone,
                               validator: (value) {
@@ -140,17 +149,16 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 10,
                             ),
                             TextFormField(
-                              // controller: _emailCtrl,
-                              onChanged: (value) {
-                                email = value;
-                              },
+                              controller: userEmailController,
                               style: TextStyle(color: Colors.white),
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return "আপনার ইমেইল আইডি দিন !";
-                                } else if (!validEmail(value)) {
-                                  return "আপনি ইনভেলিড ইমেইল আইডি দিয়েছেন !";
+                                } else if (!RegExp(
+                                    "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                    .hasMatch(value)) {
+                                  return 'আপনি ভূল ইমেইল আইডি দিয়েছেন !';
                                 }
                               },
                               decoration: InputDecoration(
@@ -177,9 +185,7 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 10,
                             ),
                             TextFormField(
-                              onChanged: (value) {
-                                password = value;
-                              },
+                              controller: userPassController,
                               style: TextStyle(color: Colors.white),
                               keyboardType: TextInputType.number,
                               validator: (value) {
@@ -222,13 +228,18 @@ class _MyRegisterState extends State<MyRegister> {
                               height: 10,
                             ),
                             TextFormField(
+                              controller: userConfirmPassController,
                               style: TextStyle(color: Colors.white),
                               keyboardType: TextInputType.number,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return "অপনার কনর্ফাম-পাসওয়ার্ড দিন !";
+                                  return "আপনার কনর্ফাম-পাসওয়ার্ড দিন !";
                                 } else if (value!.length < 6) {
                                   return "Password Must Be A 10 Character Or Above";
+                                }
+                                if (userPassController.text !=
+                                    userConfirmPassController.text) {
+                                  return "কনর্ফাম-পাসওয়ার্ড সঠিক নয় !";
                                 }
                               },
                               obscureText: !isShowPassword,
@@ -281,14 +292,33 @@ class _MyRegisterState extends State<MyRegister> {
                                       onPressed: () async {
                                         if (_formKey.currentState!
                                             .validate()) {}
-                                        _auth.createUserWithEmailAndPassword(
-                                            email: email, password: password);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content:
-                                                  Text('সাইনআপ সাকসেসফুলি')),
-                                        );
+                                        var userName =
+                                        userNameController.text.trim();
+                                        var userPhone =
+                                        userPhoneController.text.trim();
+                                        var userEmail =
+                                        userEmailController.text.trim();
+                                        var userPassword =
+                                        userPassController.text.trim();
+                                        var userConfirmPass =
+                                        userConfirmPassController.text
+                                            .trim();
+                                        await FirebaseAuth.instance
+                                            .createUserWithEmailAndPassword(
+                                            email: userEmail,
+                                            password: userPassword)
+                                            .then((value) => {
+                                          log("User Created"),
+                                          signUpUser(
+                                            userName,
+                                            userPhone,
+                                            userEmail,
+                                            userPassword,
+                                            userConfirmPass,
+                                          ),
+                                        });
+
+                                        Fluttertoast.showToast(msg: 'Signup Successfully');
                                       },
                                       icon: Icon(
                                         Icons.arrow_forward,
