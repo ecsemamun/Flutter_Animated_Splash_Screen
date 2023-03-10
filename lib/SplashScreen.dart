@@ -12,6 +12,7 @@ import 'package:flutter_animated_splash_screen/user_guide.dart';
 import 'package:flutter_animated_splash_screen/warranty_terms.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'keep_notes.dart';
 import 'mobile.dart' as mobile;
 import 'laptop.dart' as laptop;
 import 'audio.dart' as audio;
@@ -326,13 +327,13 @@ Widget buildMenuItems(BuildContext context) => Container(
             title: const Text('Keep Notes'),
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => WarrantyTerms()),
+                MaterialPageRoute(builder: (context) => Keep_Notes()),
               );
             },
           ),
           ListTile(
-            leading: const Icon(Icons.miscellaneous_services_sharp),
-            title: const Text('Service Day'),
+            leading: const Icon(Icons.language),
+            title: const Text('Language'),
             onTap: () {},
           ),
           ListTile(

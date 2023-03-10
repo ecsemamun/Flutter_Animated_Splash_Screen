@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(primarySwatch: Colors.orange),
       home: AnimatedSplashScreen(
         splash: 'assets/realme.png',
-        nextScreen: user == null ? SplashScreen() : const MyLogin(),
+        nextScreen: user != null ? SplashScreen() : const MyLogin(),
         splashTransition: SplashTransition.fadeTransition,
         duration: 3,
         backgroundColor: Colors.black,
